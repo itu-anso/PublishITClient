@@ -1,0 +1,594 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"media",
+				"media_id"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"font-",
+				"font-size"
+			],
+			[
+				"margin",
+				"margin-left"
+			],
+			[
+				"te",
+				"text-align"
+			],
+			[
+				"backgro",
+				"background-color"
+			],
+			[
+				"bac",
+				"background-image"
+			],
+			[
+				"max",
+				"max-width"
+			],
+			[
+				"ce",
+				"cellpadding	Attr"
+			],
+			[
+				"cell",
+				"cellspacing	Attr"
+			],
+			[
+				"bor",
+				"border-spacing"
+			],
+			[
+				"border",
+				"border-collapse"
+			],
+			[
+				"ar",
+				"article	Tag"
+			],
+			[
+				"text",
+				"text-align"
+			],
+			[
+				"un",
+				"underline"
+			],
+			[
+				"se",
+				"section	Tag"
+			],
+			[
+				"no",
+				"nowrap"
+			],
+			[
+				"w",
+				"white-space"
+			],
+			[
+				"margi",
+				"margin"
+			],
+			[
+				"inlin",
+				"inline-block"
+			],
+			[
+				"sett",
+				"setting_key"
+			],
+			[
+				"module",
+				"module_id"
+			],
+			[
+				"sort",
+				"sort_order"
+			],
+			[
+				"sess_",
+				"session_destroy"
+			],
+			[
+				"page_",
+				"page_title"
+			],
+			[
+				"req",
+				"request"
+			],
+			[
+				"page",
+				"page_title"
+			],
+			[
+				"up",
+				"update_settings_page_id"
+			],
+			[
+				"en",
+				"end"
+			],
+			[
+				"paddin",
+				"padding-right"
+			],
+			[
+				"c",
+				"currentTarget"
+			],
+			[
+				"tra",
+				"translated_data"
+			],
+			[
+				"show",
+				"show_settings"
+			],
+			[
+				"header",
+				"headerqueue"
+			],
+			[
+				"th",
+				"this"
+			],
+			[
+				"result",
+				"result_array"
+			],
+			[
+				"res",
+				"result"
+			],
+			[
+				"user",
+				"username"
+			],
+			[
+				"end",
+				"endforeach"
+			],
+			[
+				"for",
+				"foreach	foreach …"
+			],
+			[
+				"member",
+				"member_id"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"command_palette":
+	{
+		"height": 375.0,
+		"selected_items":
+		[
+			[
+				"",
+				"About"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"insta",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 386.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); open(os.path.join(ipp, pf), 'wb').write(urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ','%20')).read())"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/C/Users/Andreas/Documents/GitHub/PublishIT/PublishITService/PublishITService/sql/001.sql",
+		"/C/Users/Andreas/Documents/GitHub/PublishIT/PublishITService/PublishITService/sql/SQLQuery1.sql",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-3/style/style.css",
+		"/C/Windows/System32/drivers/etc/hosts",
+		"/C/zend/Apache2/htdocs/design/index.html",
+		"/C/Users/Andreas/Documents/GitHub/PublishIT/.gitignore",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-3/kontakt-mig/kontakt.php",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-3/index.html",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-3/om-mig/ommig.html",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-3/cv/cv.html",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-3/kontakt-mig/kontaktmig.html",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-3/kontakt-mig/success.html",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-2/index.html",
+		"/C/Windows/winsxs/amd64_microsoft-windows-w..nfrastructure-other_31bf3856ad364e35_6.1.7600.16385_none_6079f415110c0210/hosts",
+		"/C/zend/Apache2/conf/extra/httpd-vhosts.conf",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-2/style/style.css",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-2/script/script.js",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-2/kontakt-mig/kontaktmig.html",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-2/cv/cv.html",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-2/om-mig/ommig.html",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-2/kontakt-mig/success.html",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-2/kontakt-mig/kontakt.php",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/opgave-2/kontakt-mig/kontakt-mig.html",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/index.html",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/cv.html",
+		"/C/Users/Andreas/Desktop/index.php",
+		"/C/Users/Andreas/Documents/ITU/4. Semester/design/index.php",
+		"/C/zend/Apache2/htdocs/holdetdk/application/views/Templates/holdetdk.php",
+		"/C/zend/Apache2/htdocs/holdetdk/application/controllers/pages.php",
+		"/C/zend/Apache2/htdocs/holdetdk/application/models/page.php",
+		"/C/zend/Apache2/htdocs/holdetdk/application/libraries/Ckeditor.php",
+		"/C/zend/Apache2/htdocs/holdetdk/application/libraries/SiteMap.php",
+		"/C/zend/Apache2/htdocs/holdetdk/holdetdk.sublime-project",
+		"/C/zend/Apache2/htdocs/holdetdk/application/config/config.php",
+		"/C/zend/Apache2/htdocs/holdetdk/assets/holdetdkv1/ckfinder/core/connector/php/lang/gu.php",
+		"/C/zend/Apache2/htdocs/holdetdk/system/core/Output.php",
+		"/C/zend/Apache2/htdocs/holdetdk/application/views/Templates/original.php",
+		"/C/Users/Andreas/Pictures/Ølhanerne/index.html",
+		"/C/Users/Andreas/Pictures/ambar/index.html",
+		"/C/zend/Apache2/htdocs/holdetdk/application/views/SiteMap/SettingsForm.php",
+		"/C/zend/Apache2/htdocs/holdetdk/application/views/SiteMap/SiteMap.php",
+		"/C/zend/Apache2/htdocs/holdetdk/system/core/Security.php",
+		"/C/zend/Apache2/htdocs/holdetdk/assets/holdetdkv1/SiteMap/SiteMap.js",
+		"/C/zend/Apache2/htdocs/holdetdk/assets/holdetdkv1/SiteMap/SiteMap.css",
+		"/C/zend/Apache2/htdocs/holdetdk/application/views/Templates/admin.php",
+		"/C/zend/Apache2/htdocs/holdetdk/application/libraries/Login.php",
+		"/C/zend/Apache2/htdocs/holdetdk/application/views/login.php",
+		"/C/zend/Apache2/htdocs/holdetdk/application/models/user.php",
+		"/C/zend/Apache2/htdocs/holdetdk/system/core/Module.php",
+		"/C/zend/Apache2/htdocs/holdetdk/application/views/Templates/clean.php",
+		"/C/zend/Apache2/htdocs/holdetdk/application/config/autoload.php",
+		"/C/zend/Apache2/htdocs/holdetdk/system/libraries/Session.php",
+		"/C/Users/Andreas/workspace/lab-exercise-03.war",
+		"/C/Users/Andreas/Documents/GitHub/BDSA-Project-13/.gitignore",
+		"/C/zend/Apache2/htdocs/holdetdk/system/core/Input.php",
+		"/C/Users/Andreas/Pictures/Ølhanerne/cloud-carousel.1.0.5.js",
+		"/C/zend/Apache2/htdocs/holdetdk/application/views/ckeditor.php",
+		"/C/zend/Apache2/htdocs/holdetdk/assets/holdetdkv1/Default/js/default.js",
+		"/C/zend/Apache2/htdocs/holdetdk/system/core/Loader.php",
+		"/C/zend/Apache2/htdocs/holdetdk/assets/holdetdkv1/ckeditor/config.js",
+		"/C/zend/Apache2/htdocs/holdetdk/application/models/ckeditor.php",
+		"/C/zend/Apache2/htdocs/holdetdk/assets/holdetdkv1/ckfinder/plugins/gallery/colorbox/jquery.min.js",
+		"/C/zend/Apache2/htdocs/holdetdk/assets/AdminConsole/AdminConsole.css",
+		"/C/zend/Apache2/htdocs/holdetdk/assets/SiteMap/SiteMap.css",
+		"/C/zend/Apache2/htdocs/holdetdk/assets/default/SiteMap/SiteMap.css",
+		"/C/zend/Apache2/htdocs/holdetdk/assets/js/SiteMap/SiteMap.js",
+		"/C/Users/Andreas/AppData/Roaming/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/C/zend/Apache2/htdocs/holdetdk/system/core/Controller.php",
+		"/C/Users/Andreas/AppData/Roaming/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/C/zend/Apache2/htdocs/oelhanernedk/v2/.htaccess",
+		"/C/zend/Apache2/htdocs/oelhanernedk/v2/application/views/m/m.php",
+		"/C/zend/Apache2/htdocs/oelhanernedk/v2/application/controllers/m.php",
+		"/C/zend/Apache2/htdocs/oelhanernedk/v2/application/models/beer_rating.php",
+		"/C/zend/Apache2/htdocs/oelhanernedk/event.php",
+		"/C/Users/Andreas/Documents/ITU/3. Semester/skema",
+		"/C/Users/Andreas/Music/tale",
+		"/C/Users/Andreas/AppData/Roaming/Sublime Text 3/Packages/User/ExportHtml.sublime-settings",
+		"/C/Users/Andreas/AppData/Roaming/Sublime Text 3/Packages/User/SublimePrint.sublime-settings"
+	],
+	"find":
+	{
+		"height": 21.0
+	},
+	"find_in_files":
+	{
+		"height": 92.0,
+		"where_history":
+		[
+			"*.php",
+			"*.js",
+			"*.php",
+			"*.*",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"mdf",
+			"aside",
+			"{\n",
+			";\n",
+			"&",
+			"page",
+			"main_content",
+			"content",
+			"settings_container",
+			"settings",
+			"users",
+			"CI_",
+			"Model",
+			"CI",
+			"debug",
+			"mdf",
+			"sess_use",
+			"test",
+			"die",
+			"new_array",
+			"input",
+			"3",
+			"html",
+			"yasin-bilgic",
+			"page_id =",
+			"init",
+			"img",
+			"page_title",
+			"get_params_like",
+			"admin.php",
+			"jquery",
+			"SiteMap/",
+			"default/",
+			"default",
+			"ckeditor",
+			"admin.css",
+			"admin_console",
+			"forside",
+			"emails",
+			"users",
+			"modules",
+			"pages",
+			"show"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"&amp;"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 21.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": false,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "publishIT.sublime-project",
+	"replace":
+	{
+		"height": 38.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"kontak",
+				"kontakt-mig\\kontakt.php"
+			],
+			[
+				"st",
+				"style\\style.css"
+			],
+			[
+				"c",
+				"opgave-2\\cv\\cv.html"
+			],
+			[
+				"holdet",
+				"application\\views\\Templates\\holdetdk.php"
+			],
+			[
+				"cke",
+				"application\\libraries\\Ckeditor.php"
+			],
+			[
+				"page",
+				"application\\models\\page.php"
+			],
+			[
+				"pgaes",
+				"application\\controllers\\pages.php"
+			],
+			[
+				"holde",
+				"application\\views\\Templates\\holdetdk.php"
+			],
+			[
+				"sett",
+				"application\\views\\SiteMap\\SettingsForm.php"
+			],
+			[
+				"sitepa",
+				"application\\libraries\\SiteMap.php"
+			],
+			[
+				"pages",
+				"application\\controllers\\pages.php"
+			],
+			[
+				"sitema",
+				"application\\libraries\\SiteMap.php"
+			],
+			[
+				"user",
+				"application\\models\\user.php"
+			],
+			[
+				"login",
+				"application\\views\\login.php"
+			],
+			[
+				"mod",
+				"system\\core\\Module.php"
+			],
+			[
+				"session",
+				"system\\libraries\\Session.php"
+			],
+			[
+				"config",
+				"application\\config\\config.php"
+			],
+			[
+				"site",
+				"application\\views\\SiteMap\\SiteMap.php"
+			],
+			[
+				"sitemap",
+				"assets\\holdetdkv1\\SiteMap\\SiteMap.css"
+			],
+			[
+				"a",
+				"application\\config\\autoload.php"
+			],
+			[
+				"sitemap.j",
+				"assets\\holdetdkv1\\SiteMap\\SiteMap.js"
+			],
+			[
+				"sitemap.css",
+				"assets\\holdetdkv1\\SiteMap\\SiteMap.css"
+			],
+			[
+				"views/",
+				"application\\views\\SiteMap\\SiteMap.php"
+			],
+			[
+				"auto",
+				"application\\config\\autoload.php"
+			],
+			[
+				"input",
+				"system\\core\\Input.php"
+			],
+			[
+				"jquer",
+				"assets\\holdetdkv1\\ckfinder\\plugins\\gallery\\colorbox\\jquery.min.js"
+			],
+			[
+				"sitemap.js",
+				"assets\\holdetdkv1\\SiteMap\\SiteMap.js"
+			],
+			[
+				"jq",
+				"assets\\holdetdkv1\\ckfinder\\plugins\\gallery\\colorbox\\jquery.min.js"
+			],
+			[
+				"admin",
+				"application\\views\\Templates\\admin.php"
+			],
+			[
+				"adminci",
+				"assets\\AdminConsole\\AdminConsole.css"
+			],
+			[
+				"controller",
+				"system\\core\\Controller.php"
+			],
+			[
+				".htaccess",
+				"v2\\.htaccess"
+			],
+			[
+				"eve",
+				"event.php"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"selected_items":
+		[
+			[
+				"",
+				"C:\\zend\\Apache2\\htdocs\\ambardk\\ambardk.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 287.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

@@ -1,0 +1,30 @@
+#slider{
+    border: 1px solid #141200;
+    overflow: hidden;
+    width:960px;
+    height:299px;
+    margin: 0 auto;
+    white-space: nowrap;
+    margin-bottom: 50px;
+}
+
+#allpic {
+    width:110px;
+    height:300px;
+    background:black;
+    display: inline-block;
+    transition:all .5s ease-out;
+    margin-left: -3px;
+}
+
+#allpic img {
+    height: 300px;
+}
+
+#allpic:hover {
+    width:300px;
+}
+
+#allpic:last-child {
+    width:300px;
+}

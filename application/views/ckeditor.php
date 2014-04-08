@@ -1,0 +1,1 @@
+<div id ="editable_container" class="editable" data-ckeditor_id="<?= $ckeditor_id; ?>" data-module_id="<?= $module_id; ?>" contenteditable="<?php echo ($this->user->is_admin ? 'true': 'false'); ?>"><?= $ckeditor; ?></div>
