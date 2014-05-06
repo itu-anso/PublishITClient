@@ -1,25 +1,10 @@
-<form method="POST">
-	<input type="hidden" name="form_id" value="login_form" />
-	
-	<table>
-		<tr>
-			<td>
-				<label for="email">Email</label>
-			</td>
-			<td>
-				<input type="email" name="login_form_email" value="" placeholder="Skriv din email"/>
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<label for="password">Kodeord</label>
-			</td>
-			<td>
-				<input type="password" name="login_form_password" value="" placeholder="Skriv dit kodeord" />
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2"><input type="submit" name="submit" value="Log ind" /></td>
-		</tr>
-	</table>
-</form>
+<section class="centersection">
+	<form name="login_form" method="post">
+		<input type="hidden" name="form_id" value="login_form" />
+		<ul class="login">
+			<li><input type="text" name="login_form_username" placeholder="Indtast brugernavn" required></li>
+			<li><input type="password" name="login_form_password" placeholder="Indtast password" minlength="4" maxlength="20" required>
+			<input type="submit" value="Indsend"></li>
+		</ul>
+	</form>
+</section>	

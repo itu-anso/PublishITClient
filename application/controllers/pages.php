@@ -24,14 +24,14 @@ class Pages extends CI_Controller {
 			show_404();
 		}
 
-		if (!empty($page_id) && !$this->input->post('ajax') && ($this->page->privileges == 1 || $this->user->is_admin)) {
+		if (!empty($page_id) && !$this->input->post('ajax') && ($this->page->privileges == 1 || $this->user->is_logged_in)) {
 			$template = strtolower($this->page->template);
 			if (!empty($template)) {
 				$this->load->view('Templates/' . $template, $this->data);
 			}
-		} else if ($this->page->privileges == 2 && !$this->user->is_admin) {
+		} else if ($this->page->privileges == 2 && !$this->user->is_logged_in) {
 			$this->session->set_flashdata('requested_url', $_SERVER["REQUEST_URI"]);
-			redirect("/log-ind");
+			redirect("/login");
 		}
 	}
 

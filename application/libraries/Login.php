@@ -6,6 +6,9 @@ class Login {
 	public function init($module_id=null) {
 		$this->CI =& get_instance();
 		$class = $this->CI->headerqueue;
+		$class->add('/assets/publishit/style.css', $class::STYLESHEET_REFERENCE);
+
+		// add($url, $type, $other_param=array())
 
 		$this->CI->session->keep_flashdata('requested_url');
 
@@ -18,9 +21,9 @@ class Login {
 		$form_id = $this->CI->input->post('form_id');
 		$this->replacement_data = $this->CI->input->translate_prefix($form_id);
 		$this->translated_data = $this->replacement_data;
-
 		switch ($form_id) {
 			case 'login_form':
+
 				$this->login_user();
 
 				if ($this->CI->session->flashdata('requested_url')) {
@@ -37,7 +40,7 @@ class Login {
 	} // handle_post()
 
 	private function login_user() {
-		$this->CI->user->login($this->translated_data['email'], $this->translated_data['password']);
+		$this->CI->user->login($this->translated_data['username'], $this->translated_data['password']);
 	} // login()
 
 	public function render() {

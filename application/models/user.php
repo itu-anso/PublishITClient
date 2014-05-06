@@ -23,48 +23,33 @@ class User extends CI_Model{
 	*
 	*/
 	public function login($email = null, $password = null) {
-		$query = $this->db->query("SELECT salt FROM user WHERE email = ?", array($email));
-		$row = $query->row();
-		$salt = $row->salt;
-		if (!$this->is_logged_in && !empty($salt)) {
-			$query = "
-				SELECT
-					user_id,
-					name,
-					email,
-					role
-				FROM
-					user
-				WHERE
-					email = ?
-				AND
-					password = ?";
-			$result = $this->db->query($query, array($email, $this->encode_password($password, $salt)));
+		$client = new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
+		$user_info = $client->signIn(array('username' => $email, 'password' => $password));
+		
 
-			if ($result->num_rows() > 0) {
-				$row = $result->row();
-				$this->user_id = $row->user_id;
-				$this->name = $row->name;
-				$this->email = $row->email;
-				$this->is_logged_in = true;
+		//if ($result->num_rows() > 0) {
+			//$row = $result->row();
+			$this->user_id = $user_info->SignInResult->user_id;
+			$this->name = $user_info->SignInResult->name;
+			$this->email = $user_info->SignInResult->email;
+			$this->is_logged_in = true;
 
-				switch ($row->role) {
-					case 'admin':
-						$this->is_admin = true;
-					default:
-						break;
+			$roles = $user_info->SignInResult->roles->RoleDTO;
+			foreach ($roles as $object) {
+				if ($object->Title == 'admin') {
+					$this->is_admin = true;
 				}
-
-				$user_session_data = array(
-					'user_id' => $row->user_id,
-					'name' => $row->name,
-					'email' => $row->email,
-					'is_logged_in' => true,
-					'is_admin' => $this->is_admin
-					);
-				$this->session->set_userdata($user_session_data);
 			}
- 		}
+
+			$user_session_data = array(
+				'user_id' => $user_info->SignInResult->user_id,
+				'name' => $user_info->SignInResult->name,
+				'email' => $user_info->SignInResult->email,
+				'is_logged_in' => true,
+				'is_admin' => $this->is_admin
+			);
+			$this->session->set_userdata($user_session_data);
+		//}
 
  		if ($this->is_logged_in) {
  			return true;
