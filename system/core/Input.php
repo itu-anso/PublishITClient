@@ -220,6 +220,15 @@ class CI_Input {
 			}
 			return $new_array;
 		}
+		if (!empty($_GET))
+		{
+			$array= array_intersect_key($_GET, array_flip(preg_grep('/^'. $form_id . '_/', array_keys($_GET))));
+			foreach ($array as $key => $value) {
+				list($dummy, $new_key) = explode($form_id . '_', $key);
+				$new_array[$new_key] = $value;
+			}
+			return $new_array;
+		}
 	}
 
 	// --------------------------------------------------------------------
