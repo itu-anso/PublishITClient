@@ -19,7 +19,7 @@ class User extends CI_Model{
 	} // __construct()
 
 	/**
-	* Log a usre in to the system.
+	* Log a user in to the system.
 	*
 	*/
 	public function login($email = null, $password = null) {
@@ -36,7 +36,8 @@ class User extends CI_Model{
 
 			$roles = $user_info->SignInResult->roles->RoleDTO;
 			foreach ($roles as $object) {
-				if ($object->Title == 'admin') {
+
+				if (isset($object->Title) && $object->Title == 'admin') {
 					$this->is_admin = true;
 				}
 			}
