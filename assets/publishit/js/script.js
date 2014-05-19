@@ -9,6 +9,17 @@ $(function(){
 			return false;
 	});
 
+
+	$('#create_account_form').dialog({
+		autoOpen : false,
+		show : true
+	});
+
+	$('#create_account_button').on('click', function() {
+		$('#create_account_form').dialog('open');
+	});
+
+
 	$('#dialog').dialog({
 		autoOpen : false,
 		show : true
