@@ -1,17 +1,18 @@
 $(function(){
-	$('.accContainer').hide();
-	//$('.accContainer:first').next().slideDown();	
-	$('.accordionHeader').click(function(){
-		if($(this).next().is(':hidden')){
-			$('.accordionHeader').next().slideUp();
-			$(this).next().slideDown();
-			}
-			return false;
+	$( "#accordion" ).accordion({
+		collapsible: true,
+		active:false
+	});
+
+	$( "#search_accordion" ).accordion({
+		collapsible: true,
+		active: false
 	});
 
 	$('#dialog').dialog({
 		autoOpen : false,
-		show : true
+		show : true,
+		modal: true
 	});
 
 	$('#upload_button').on('click', function() {
@@ -32,3 +33,5 @@ function uploadHandler() {
 		});
 	}
 }
+	
+	

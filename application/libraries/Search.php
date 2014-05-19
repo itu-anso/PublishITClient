@@ -26,23 +26,43 @@ class Search {
 		switch ($form_id) {
 			case 'upload_file_form':
 				$this->upload_file();
-				redirect('/');
+				//redirect('/');
 				break;
 			case 'search_form':
 				$this->search_media();
+				break;
+			case 'download_form':
+				$this->download();
 				break;
 			default:
 				break;
 		}
 	}
 
+	private function download() {
+		$client = new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('trace' => true, 'cache_wsdl' => WSDL_CACHE_NONE));
+		$params = array('id' => $this->translated_data['media_id']);
+		//$retval = $client->Test(null);
+		
+		$result = $client->DownloadMedia($params);
+		
+		header('Content-type: application/pdf');
+		// It will be called downloaded.pdf
+		header('Content-Disposition: attachment; filename="downloaded.pdf"');
+
+		// The PDF source is in original.pdf
+		//readfile('original.pdf');
+		echo ($result->DownloadMediaResult);
+		//var_dump($client->__getLastResponse());
+		
+	}
+
 	private function search_media() {
 		//var_dump($this->translated_data);
 
 		$client = new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
-		$params = array('title' => 'Rasmus');
+		$params = array('title' => $this->translated_data['search_string']);
 		$retval = $client->searchMedia($params);
-		
 		$this->parser_medias($retval->SearchMediaResult);
 
 	}
@@ -70,7 +90,6 @@ class Search {
 
 	private function upload_file() {
 		if ($_FILES) {
-
 			$temp = explode(".", $_FILES["upload_file_form_upload_file"]["name"]);
 			$extension = end($temp);
 			$file = fopen($_FILES['upload_file_form_upload_file']['tmp_name'], 'r');
@@ -80,20 +99,20 @@ class Search {
 			$headers[] = new SoapHeader('http://tempuri.org/', 'Title', $this->translated_data['title']);
 			$headers[] = new SoapHeader('http://tempuri.org/', 'FileName', $_FILES["upload_file_form_upload_file"]["name"]);
 			$headers[] = new SoapHeader('http://tempuri.org/', 'UserId', $this->CI->user->user_id);
-			$headers[] = new SoapHeader('http://tempuri.org/', 'Status', 'published');
+			$headers[] = new SoapHeader('http://tempuri.org/', 'Status', (isset($this->translated_data['status']) ? 'published' : 'private'));
+			$headers[] = new SoapHeader('http://tempuri.org/', 'Description', 'published');
 
 			$params =  array(
 					'FileStream' => $contents
 			);
 			
-			$client = new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
+			$client = new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('trace' => true, 'cache_wsdl' => WSDL_CACHE_NONE));
 			$client->__setSoapHeaders($headers);
 			try {
 				$client->UploadMedia($params);
 			} catch (SoapFault $e){
 				echo '<pre>';
-				var_dump($e->detail);
-				var_dump($e->faultcode);
+				var_dump($e);
 				echo '</pre>';
 			}
 		}

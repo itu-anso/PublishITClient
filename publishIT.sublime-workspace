@@ -4,16 +4,28 @@
 		"selected_items":
 		[
 			[
+				"for",
+				"foreach	foreach …"
+			],
+			[
+				"Searc",
+				"searchMedia"
+			],
+			[
+				"e",
+				"echo	echo \"…\""
+			],
+			[
+				"searc",
+				"searchMedia"
+			],
+			[
 				"_",
 				"_GET"
 			],
 			[
 				"seac",
 				"search"
-			],
-			[
-				"for",
-				"form_id"
 			],
 			[
 				"con",
@@ -219,7 +231,7 @@
 			"file": "application/libraries/Search.php",
 			"settings":
 			{
-				"buffer_size": 2598,
+				"buffer_size": 4069,
 				"line_ending": "Windows"
 			}
 		},
@@ -235,7 +247,7 @@
 			"file": "application/views/search.php",
 			"settings":
 			{
-				"buffer_size": 687,
+				"buffer_size": 1229,
 				"line_ending": "Windows"
 			}
 		},
@@ -244,6 +256,14 @@
 			"settings":
 			{
 				"buffer_size": 1159,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "application/libraries/Publications.php",
+			"settings":
+			{
+				"buffer_size": 339,
 				"line_ending": "Windows"
 			}
 		},
@@ -320,6 +340,8 @@
 	},
 	"file_history":
 	[
+		"/C/zend/Apache2/htdocs/publishIT/application/views/search.php",
+		"/C/zend/Apache2/htdocs/publishIT/system/core/Input.php",
 		"/C/zend/Apache2/htdocs/publishIT/application/views/login.php",
 		"/C/zend/Apache2/htdocs/publishIT/application/logs/index.html",
 		"/C/zend/Apache2/htdocs/publishIT/application/libraries/Login.php",
@@ -327,10 +349,8 @@
 		"/C/zend/Apache2/htdocs/publishIT/publishIT.sublime-project",
 		"/C/zend/Apache2/htdocs/publishIT/application/views/Templates/publishit.php",
 		"/C/zend/Apache2/htdocs/publishIT/application/controllers/pages.php",
-		"/C/zend/Apache2/htdocs/publishIT/system/core/Input.php",
 		"/C/zend/Apache2/htdocs/publishIT/application/models/user.php",
 		"/C/zend/Apache2/htdocs/publishIT/system/libraries/Session.php",
-		"/C/zend/Apache2/htdocs/publishIT/application/views/search.php",
 		"/C/zend/Apache2/htdocs/publishIT/application/libraries/Search.php",
 		"/C/zend/Apache2/htdocs/publishIT/application/views/Templates/publications.php",
 		"/C/zend/Apache2/htdocs/publishIT/application/models/headerqueue.php",
@@ -469,6 +489,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"translate",
 			"tra",
 			"']));\n",
 			"<?",
@@ -572,7 +593,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -588,8 +609,8 @@
 						"selection":
 						[
 							[
-								419,
-								419
+								175,
+								190
 							]
 						],
 						"settings":
@@ -601,7 +622,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -610,15 +631,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2598,
+						"buffer_size": 4069,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								553,
-								553
+								1329,
+								1329
 							]
 						],
 						"settings":
@@ -627,7 +648,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 121.0,
+						"translation.y": 349.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
@@ -646,8 +667,8 @@
 						"selection":
 						[
 							[
-								5053,
-								5053
+								4824,
+								4833
 							]
 						],
 						"settings":
@@ -656,10 +677,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 2589.0,
+						"translation.y": 2639.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -668,15 +689,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 687,
+						"buffer_size": 1229,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								388,
-								401
+								324,
+								324
 							]
 						],
 						"settings":
@@ -688,7 +709,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
 					"type": "text"
 				},
 				{
@@ -704,8 +725,8 @@
 						"selection":
 						[
 							[
-								521,
-								521
+								29,
+								29
 							]
 						],
 						"settings":
@@ -717,11 +738,39 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 6,
 					"type": "text"
 				},
 				{
 					"buffer": 6,
+					"file": "application/libraries/Publications.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 339,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5,
+								5
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
 					"file": "application/libraries/Login.php",
 					"semi_transient": false,
 					"settings":
@@ -733,8 +782,8 @@
 						"selection":
 						[
 							[
-								622,
-								622
+								555,
+								555
 							]
 						],
 						"settings":
@@ -746,11 +795,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 8,
 					"file": "application/views/login.php",
 					"semi_transient": false,
 					"settings":
@@ -774,11 +823,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
-					"buffer": 8,
+					"buffer": 9,
 					"file": "application/controllers/pages.php",
 					"semi_transient": false,
 					"settings":
@@ -803,11 +852,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
-					"buffer": 9,
+					"buffer": 10,
 					"file": "application/models/page.php",
 					"semi_transient": false,
 					"settings":
@@ -829,10 +878,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1376.0,
+						"translation.y": 1253.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 10,
 					"type": "text"
 				}
 			]
@@ -889,6 +938,10 @@
 				"system\\core\\Input.php"
 			],
 			[
+				"publ",
+				"application\\libraries\\Publications.php"
+			],
+			[
 				"sear",
 				"application\\views\\search.php"
 			],
@@ -919,10 +972,6 @@
 			[
 				"head",
 				"application\\models\\headerqueue.php"
-			],
-			[
-				"publ",
-				"application\\views\\Templates\\publishit.php"
 			],
 			[
 				"am",
@@ -1121,7 +1170,7 @@
 	"show_minimap": true,
 	"show_open_files": false,
 	"show_tabs": true,
-	"side_bar_visible": true,
+	"side_bar_visible": false,
 	"side_bar_width": 287.0,
 	"status_bar_visible": true,
 	"template_settings":
