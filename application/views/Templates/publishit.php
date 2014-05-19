@@ -19,6 +19,8 @@
 				<? if($this->user->is_logged_in): ?>
 					<a><?= $this->user->name; ?></a>
 					<a id="upload_button" href="" onclick="return false;" >Upload</a>
+					<a id="logout_button" href="/login?logout=true" >Logout</a>
+
 				<? endif; ?>
 			</nav>
 		</header>

@@ -8,35 +8,40 @@ class Publications {
 	public function init($module_id=null) {
 		$this->CI =& get_instance();
 		$class = $this->CI->headerqueue;
-		$this->get_medias_by_user();
 		
-
+		if ($this->CI->user->is_logged_in){
+			$this->get_medias_by_user();	
+		}
+		
 	}
 
 
 	public function get_medias_by_user() {
-		ini_set("soap.wsdl_cache_enabled", "0");
+		// create a new client to use the service. The wsdl file contains information about the service (method names ect.)
 		$client = new SoapClient ("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
 		
 		// get the id from the current user to pass as parameter for GetMediaByAuther(id)
 		$params = array('id' => $this->CI->user->user_id);
-		$test = array('id' => 1);
 
 		try {
-			$medias = $client->GetMediaByAuthor($test);
-
+			// get the medias from this user
+			$medias = $client->GetMediaByAuthor($params);
 		} catch (SoapFault $e) {
 				echo '<pre>';
 				var_dump($e->getMessage());
 				var_dump($e->detail);
 				var_dump($e->faultcode);
 				echo '</pre>';
+		}		
+
+		if(isset($medias->GetMediaByAuthorResult->media->title)) {
+			$media_list[0] = $medias->GetMediaByAuthorResult->media;
+
+		} else {
+
+			$media_list = $medias->GetMediaByAuthorResult->media;
 		}
-		
-
-
-		foreach($medias->GetMediaByAuthorResult->media as $media) {
-
+		foreach($media_list as $media) {
 
 			$this->data['medias'][$media->media_id]['title'] = $media->title;
 			$this->data['medias'][$media->media_id]['average rating'] = $media->average_rating;
@@ -46,15 +51,7 @@ class Publications {
 
 		}
 
-
-		
-		//echo '<pre>';
-		//var_dump($this->CI->user->user_id);
-		//echo '</pre>';
-
-
 	}
-
 
 
 	public function render() {
