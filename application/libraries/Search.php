@@ -12,24 +12,40 @@ class Search {
 		$class->add('//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js', $class::JAVASCRIPT_REFERENCE);
 		$class->add('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js', $class::JAVASCRIPT_REFERENCE);
 		$class->add('/assets/publishit/js/script.js', $class::JAVASCRIPT_REFERENCE);
+
+		$this->CI->load->library('Message');
 		//var_dump($_FILES);
-		if ($_FILES || $_GET) {
+		if ($_FILES || $_POST ) {
 			$this->handle_post();
+		}
+
+		if ($_GET) {
+			$this->handle_get();
+		}
+	}
+
+	private function handle_get() {
+		$form_id = $this->CI->input->get('form_id');
+		$this->replacement_data = $this->CI->input->translate_prefix($form_id);
+		$this->translated_data = $this->replacement_data;
+
+		switch ($form_id) {
+			case 'search_form':
+				$this->search_media();
+				break;
+			default:
+				break;
 		}
 	}
 
 	private function handle_post() {
-		$form_id = $this->CI->input->get_post('form_id');
+		$form_id = $this->CI->input->post('form_id');
 		$this->replacement_data = $this->CI->input->translate_prefix($form_id);
 		$this->translated_data = $this->replacement_data;
 
 		switch ($form_id) {
 			case 'upload_file_form':
 				$this->upload_file();
-				//redirect('/');
-				break;
-			case 'search_form':
-				$this->search_media();
 				break;
 			case 'download_form':
 				$this->download();
@@ -40,31 +56,37 @@ class Search {
 	}
 
 	private function download() {
-		$client = new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('trace' => true, 'cache_wsdl' => WSDL_CACHE_NONE));
-		$params = array('id' => $this->translated_data['media_id']);
-		//$retval = $client->Test(null);
-		
-		$result = $client->DownloadMedia($params);
-		
-		header('Content-type: application/pdf');
-		// It will be called downloaded.pdf
-		header('Content-Disposition: attachment; filename="downloaded.pdf"');
+		try {
+			$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
+			$params = array('id' => $this->translated_data['media_id']);
+			//$retval = $client->Test(null);
+			
+			$result = $client->DownloadMedia($params);
+			
+			header('Content-type: application/pdf');
+			header('Content-Disposition: attachment; filename="' . $this->translated_data['media_id'] . '.pdf"');
 
-		// The PDF source is in original.pdf
-		//readfile('original.pdf');
-		echo ($result->DownloadMediaResult);
-		//var_dump($client->__getLastResponse());
+			echo ($result->DownloadMediaResult);
+		} catch(SoapFault $e) {
+			$this->CI->message->set_error_message('Uuups... it wasn\'t possible to fetch your file, please try again later');
+			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+			log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
+		}
 		
 	}
 
 	private function search_media() {
-		//var_dump($this->translated_data);
+		try {
+			$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
 
-		$client = new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
-		$params = array('title' => $this->translated_data['search_string']);
-		$retval = $client->searchMedia($params);
-		$this->parser_medias($retval->SearchMediaResult);
-
+			$params = array('title' => $this->translated_data['search_string']);
+			$retval = $client->searchMedia($params);
+			$this->parser_medias($retval->SearchMediaResult);
+		} catch (SoapFault $e) {
+			$this->CI->message->set_error_message('Uuups... it wasn\'t possible to fetch your results, please try again later');
+			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+			log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
+		}
 	}
 
 	private function parser_medias ($medias) {
@@ -82,10 +104,17 @@ class Search {
 	}
 
 	private function get_author($id) {
-		$client = new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
-		$params = array('id' => $id);
-		$retval = $client->GetUserById($params);
-		return $retval->GetUserByIdResult->name;
+		try {
+			$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
+			$params = array('id' => $id);
+			$retval = $client->GetUserById($params);
+			return $retval->GetUserByIdResult->name;
+		} catch (SoapFault $e) {
+			$this->CI->message->set_error_message('Uuups... it wasn\'t possible to fetch your results, please try again later');
+			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+			log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
+		}
+
 	}
 
 	private function upload_file() {
@@ -106,24 +135,20 @@ class Search {
 					'FileStream' => $contents
 			);
 			
-			$client = new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('trace' => true, 'cache_wsdl' => WSDL_CACHE_NONE));
-			$client->__setSoapHeaders($headers);
+			
 			try {
+				$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('trace' => true, 'cache_wsdl' => WSDL_CACHE_NONE));
+				$client->__setSoapHeaders($headers);
 				$client->UploadMedia($params);
 			} catch (SoapFault $e){
-				echo '<pre>';
-				var_dump($e);
-				echo '</pre>';
+				$this->CI->message->set_error_message('Uuups... Something went wrong when trying to upload your document, please try again later');
+				$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+				log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
 			}
 		}
 	}
 
 	public function render() {
-
-		$client = new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
-		$params =  array('id' => 1 );
-		//var_dump($client->__getFunctions());
-
 		return $this->CI->load->view('search', $this->data, true);
 	}
 

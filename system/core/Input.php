@@ -210,6 +210,7 @@ class CI_Input {
 	*/
 	function translate_prefix ($form_id)
 	{
+		$new_array = array();
 		// Check if a field has been provided
 		if (!empty($_POST))
 		{
