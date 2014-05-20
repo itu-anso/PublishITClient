@@ -32,7 +32,8 @@ class Publications {
 			
 			// This is to see if the result is empty
 			$temp = (array)$medias->GetMediaByAuthorResult;
-			if (empty($test)) {
+			
+			if (empty($temp)) {
 				return;
 			}
 		} catch (SoapFault $e) {

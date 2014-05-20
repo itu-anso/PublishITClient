@@ -8,12 +8,13 @@ class Search {
 	public function init($module_id=null) {
 		$this->CI =& get_instance();
 		$class = $this->CI->headerqueue;
-		$this->CI->load->library('Message');
+		
 
 		$class->add('//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js', $class::JAVASCRIPT_REFERENCE);
 		$class->add('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js', $class::JAVASCRIPT_REFERENCE);
 		$class->add('/assets/publishit/js/script.js', $class::JAVASCRIPT_REFERENCE);
 
+		$this->CI->load->library('Message');
 		
 		//var_dump($_FILES);
 		if ($_FILES || $_POST ) {
@@ -47,6 +48,9 @@ class Search {
 		switch ($form_id) {
 			case 'upload_file_form':
 				$this->upload_file();
+				if(!$this->CI->message->has_error()) {
+					redirect('/');
+				}
 				break;
 			case 'download_form':
 				$this->download();
@@ -82,7 +86,14 @@ class Search {
 
 			$params = array('title' => $this->translated_data['search_string']);
 			$retval = $client->searchMedia($params);
-			$this->parser_medias($retval->SearchMediaResult);
+			
+			if(isset($retval->SearchMediaResult->media->title)) {
+				$media_list[0] = $retval->SearchMediaResult->media;
+			} else {
+				$media_list = $retval->SearchMediaResult->media;
+			}
+
+			$this->parser_medias($media_list);
 		} catch (SoapFault $e) {
 			$this->CI->message->set_error_message('Uuups... it wasn\'t possible to fetch your results, please try again later');
 			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
@@ -91,7 +102,9 @@ class Search {
 	}
 
 	private function parser_medias ($medias) {
-		foreach ($medias->media as $media ) {
+
+		
+		foreach ($medias as $media ) {
 			$this->data['medias'][$media->media_id]['title'] = $media->title;
 			$this->data['medias'][$media->media_id]['user_id'] = $media->user_id;
 			$this->data['medias'][$media->media_id]['format_id'] = $media->format_id;
