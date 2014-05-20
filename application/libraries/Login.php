@@ -81,17 +81,16 @@ class Login {
 	} // login()
 
 	private function create_account() {
-		$client = new SoapClient ("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('trace' => 1, 'cache_wsdl' => WSDL_CACHE_NONE));
+		$client = @new SoapClient ("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
 		try {
-				// Solves the date time problem by changing the format.	
-				$this->translated_data['birthday'] =  date('Y-m-d\TH:i:sP', strtotime($this->translated_data['birthday']));
-				$client->RegisterUser(array('user' => $this->translated_data));
-			} catch (SoapFault $e){
-				echo '<pre>';
-				var_dump($client->__getLastResponse());
-				var_dump($e);
-				echo '</pre>';
-			}
+			// Solves the date time problem by changing the format.	
+			$this->translated_data['birthday'] =  date('Y-m-d\TH:i:sP', strtotime($this->translated_data['birthday']));
+			$client->RegisterUser(array('user' => $this->translated_data));
+		} catch (SoapFault $e){
+			$this->CI->message->set_error_message('Uuups... it wasn\'t possible to create your account, please try again later');
+			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+			log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
+		}
 	}
 
 	public function render() {
