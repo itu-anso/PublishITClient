@@ -76,7 +76,7 @@ class Publications {
 
 	private function show_document(){
 		try {
-			@new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
+			$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
 			$params = array('id' => $this->translated_data['media_id']);
 
 			$result = $client->DownloadMedia($params);
