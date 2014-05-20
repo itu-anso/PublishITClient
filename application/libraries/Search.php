@@ -121,6 +121,13 @@ class Search {
 		if ($_FILES) {
 			$temp = explode(".", $_FILES["upload_file_form_upload_file"]["name"]);
 			$extension = end($temp);
+
+			if ($extension != 'pdf') {
+				$this->CI->message->set_error_message('Sory... only pdf files are allowed at the moment');
+				$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+				log_message('info', 'Wrong file format');
+			}
+
 			$file = fopen($_FILES['upload_file_form_upload_file']['tmp_name'], 'r');
 			$contents = fread($file, filesize($_FILES['upload_file_form_upload_file']['tmp_name']));
 
@@ -134,8 +141,7 @@ class Search {
 			$params =  array(
 					'FileStream' => $contents
 			);
-			
-			
+
 			try {
 				$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('trace' => true, 'cache_wsdl' => WSDL_CACHE_NONE));
 				$client->__setSoapHeaders($headers);
