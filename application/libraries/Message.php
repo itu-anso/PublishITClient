@@ -5,7 +5,7 @@ class Message {
 
 	private $error_messages = array();
 
-	private $has_error = false;
+	private $has_error;
 
 	public function __construct() {
 		// get the framework and is th eactual link to the functions of the framework
@@ -13,6 +13,7 @@ class Message {
 		$class = $this->CI->headerqueue;
 		$class->add('/assets/Message/Message.css', $class::STYLESHEET_REFERENCE);
 		$class->add('/assets/Message/js/Message.js', $class::JAVASCRIPT_REFERENCE);
+		$this->has_error = false;
 	}
 
 	public function set_error_message($error_message) {
@@ -24,7 +25,7 @@ class Message {
 		return $this->CI->load->view('message', array('error_messages' => $this->error_messages), true);
 	}
 
-	public function has_error(){
+	public function has_error() {
 		return $this->has_error;
 	}
 

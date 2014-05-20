@@ -18,7 +18,6 @@ class Publications {
 		}
 	}
 
-
 	public function get_medias_by_user() {
 
 		try {
@@ -30,6 +29,12 @@ class Publications {
 
 			// get the medias from this user
 			$medias = $client->GetMediaByAuthor($params);
+			
+			// This is to see if the result is empty
+			$temp = (array)$medias->GetMediaByAuthorResult;
+			if (empty($test)) {
+				return;
+			}
 		} catch (SoapFault $e) {
 			$this->CI->message->set_error_message('Uuups..  it wasn\'t possible to fetch your documents, please try again later');
 			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
@@ -39,13 +44,10 @@ class Publications {
 
 		if(isset($medias->GetMediaByAuthorResult->media->title)) {
 			$media_list[0] = $medias->GetMediaByAuthorResult->media;
-
 		} else {
-
 			$media_list = $medias->GetMediaByAuthorResult->media;
 		}
 		foreach($media_list as $media) {
-
 			$this->data['medias'][$media->media_id]['title'] = $media->title;
 			$this->data['medias'][$media->media_id]['average_rating'] = $media->average_rating;
 			$this->data['medias'][$media->media_id]['description'] = $media->description;

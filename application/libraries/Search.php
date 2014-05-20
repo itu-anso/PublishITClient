@@ -8,12 +8,13 @@ class Search {
 	public function init($module_id=null) {
 		$this->CI =& get_instance();
 		$class = $this->CI->headerqueue;
+		$this->CI->load->library('Message');
 
 		$class->add('//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js', $class::JAVASCRIPT_REFERENCE);
 		$class->add('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js', $class::JAVASCRIPT_REFERENCE);
 		$class->add('/assets/publishit/js/script.js', $class::JAVASCRIPT_REFERENCE);
 
-		$this->CI->load->library('Message');
+		
 		//var_dump($_FILES);
 		if ($_FILES || $_POST ) {
 			$this->handle_post();

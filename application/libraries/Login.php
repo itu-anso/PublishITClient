@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Login {
 
+	private $data;
+	
 	private $CI;
 
 	public function init($module_id=null) {
@@ -8,12 +10,14 @@ class Login {
 		$this->CI =& get_instance();
 		// Headerqueuue makes it possible to make an add to the header ect.
 		$class = $this->CI->headerqueue;
+		$this->CI->load->library('Message');
 
 		$class->add('/assets/publishit/style.css', $class::STYLESHEET_REFERENCE);
 		$class->add('/assets/login/login.css', $class::STYLESHEET_REFERENCE);
 		$class->add('//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js', $class::JAVASCRIPT_REFERENCE);
 		$class->add('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js', $class::JAVASCRIPT_REFERENCE);
 		$class->add('/assets/publishit/js/script.js', $class::JAVASCRIPT_REFERENCE);
+		$class->add('/assets/message/js/message.js', $class::JAVASCRIPT_REFERENCE);
 		// keep_flashdata makes an redirect possible. Actually the opposite of learnit.
 		$this->CI->session->keep_flashdata('requested_url');
 
@@ -40,14 +44,13 @@ class Login {
 		switch ($form_id) {
 			case 'login_form':
 				$this->login_user();
-
-				if ($this->CI->session->flashdata('requested_url')) {
+				if ($this->CI->user->is_logged_in && $this->CI->session->flashdata('requested_url')) {
 					redirect($this->CI->session->flashdata('requested_url'));
 				}
 				break;
 
-			case 'create_account':				
-				$this->translated_data['organization_id'] = 1;				
+			case 'create_account':
+				$this->translated_data['organization_id'] = 1;
 				$this->create_account();
 				redirect('/login');
 				break;
@@ -60,10 +63,22 @@ class Login {
 
 
 	private function login_user() {
-		$this->CI->user->login($this->translated_data['username'], $this->translated_data['password']);
+		try {
+			$success = $this->CI->user->login($this->translated_data['username'], $this->translated_data['password']);
+		} catch(Soapfault $e) {
+			$this->CI->message->set_error_message('Uuups... it wasn\'t possible to log you in, please try again later');
+			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+			log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
+			return;
+		}
+		if (!$success) {
+			$this->CI->message->set_error_message('Uuups... something seems to be wrong with your username, password combo');
+			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+			log_message('error', 'Wrong username or passoword');
+		}
+
+		
 	} // login()
-
-
 
 	private function create_account() {
 		$client = new SoapClient ("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('trace' => 1, 'cache_wsdl' => WSDL_CACHE_NONE));
@@ -77,11 +92,10 @@ class Login {
 				var_dump($e);
 				echo '</pre>';
 			}
-
 	}
 
 	public function render() {
-		return $this->CI->load->view('login', '', true);
+		return $this->CI->load->view('login', $this->data, true);
 	}
 }
 

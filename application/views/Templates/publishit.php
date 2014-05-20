@@ -28,7 +28,7 @@
 				<? endif; ?>
 			</nav>
 		</header>
-		<? if($this->message->has_error()): ?>
+		<? if( $this->message->has_error()): ?>
 			<?= $error_messages; ?>
 		<? endif; ?>
 

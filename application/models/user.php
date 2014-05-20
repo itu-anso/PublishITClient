@@ -23,34 +23,35 @@ class User extends CI_Model{
 	*
 	*/
 	public function login($email = null, $password = null) {
-		$client = new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
-		$user_info = $client->signIn(array('username' => $email, 'password' => $password));
 		
+		$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
+		$user_info = $client->signIn(array('username' => $email, 'password' => $password));
 
-		//if ($result->num_rows() > 0) {
-			//$row = $result->row();
-			$this->user_id = $user_info->SignInResult->user_id;
-			$this->name = $user_info->SignInResult->name;
-			$this->email = $user_info->SignInResult->email;
-			$this->is_logged_in = true;
+		if ($user_info->SignInResult->name == "Sign in failed") {
+			return false;
+		}
 
-			$roles = $user_info->SignInResult->roles->RoleDTO;
-			foreach ($roles as $object) {
+		$this->user_id = $user_info->SignInResult->user_id;
+		$this->name = $user_info->SignInResult->name;
+		$this->email = $user_info->SignInResult->email;
+		$this->is_logged_in = true;
 
-				if (isset($object->Title) && $object->Title == 'admin') {
-					$this->is_admin = true;
-				}
+		$roles = $user_info->SignInResult->roles->RoleDTO;
+		foreach ($roles as $object) {
+
+			if (isset($object->Title) && $object->Title == 'admin') {
+				$this->is_admin = true;
 			}
+		}
 
-			$user_session_data = array(
-				'user_id' => $user_info->SignInResult->user_id,
-				'name' => $user_info->SignInResult->name,
-				'email' => $user_info->SignInResult->email,
-				'is_logged_in' => true,
-				'is_admin' => $this->is_admin
-			);
-			$this->session->set_userdata($user_session_data);
-		//}
+		$user_session_data = array(
+			'user_id' => $user_info->SignInResult->user_id,
+			'name' => $user_info->SignInResult->name,
+			'email' => $user_info->SignInResult->email,
+			'is_logged_in' => true,
+			'is_admin' => $this->is_admin
+		);
+		$this->session->set_userdata($user_session_data);
 
  		if ($this->is_logged_in) {
  			return true;
