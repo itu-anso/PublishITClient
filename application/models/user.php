@@ -24,9 +24,9 @@ class User extends CI_Model{
 	*/
 	public function login($email = null, $password = null) {
 		
-		$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
-		$user_info = $client->signIn(array('username' => $email, 'password' => $password));
-
+		$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('cache_wsdl' => WSDL_CACHE_NONE));
+		$user_info = $client->signIn(array('username' => $email, 'password' => $password, 'organization' => 1));
+		
 		if ($user_info->SignInResult->name == "Sign in failed") {
 			return false;
 		}

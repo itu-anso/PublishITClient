@@ -82,15 +82,15 @@ class Search {
 
 	private function search_media() {
 		try {
-			$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
+			$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('cache_wsdl' => WSDL_CACHE_NONE));
 
-			$params = array('title' => $this->translated_data['search_string']);
-			$retval = $client->searchMedia($params);
-			
-			if(isset($retval->SearchMediaResult->media->title)) {
-				$media_list[0] = $retval->SearchMediaResult->media;
+			$params = array('title' => $this->translated_data['search_string'], 'organizationId' => 1);
+			$retval = $client->SearchMedia($params);
+
+			if(isset($retval->SearchMediaResult->MediaDTO->title)) {
+				$media_list[0] = $retval->SearchMediaResult->MediaDTO;
 			} else {
-				$media_list = $retval->SearchMediaResult->media;
+				$media_list = $retval->SearchMediaResult->MediaDTO;
 			}
 
 			$this->parser_medias($media_list);

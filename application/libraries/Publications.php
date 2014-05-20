@@ -22,16 +22,16 @@ class Publications {
 
 		try {
 			// create a new client to use the service. The wsdl file contains information about the service (method names ect.)
-			$client = @new SoapClient ("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
+			$client = @new SoapClient ("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('cache_wsdl' => WSDL_CACHE_NONE));
 			
 			// get the id from the current user to pass as parameter for GetMediaByAuther(id)
-			$params = array('id' => $this->CI->user->user_id);
+			$params = array('userId' => $this->CI->user->user_id);
 
 			// get the medias from this user
-			$medias = $client->GetMediaByAuthor($params);
-			
+			$medias = $client->GetMediaByAuthorId($params);
+
 			// This is to see if the result is empty
-			$temp = (array)$medias->GetMediaByAuthorResult;
+			$temp = (array)$medias->GetMediaByAuthorIdResult;
 			
 			if (empty($temp)) {
 				return;
@@ -41,13 +41,15 @@ class Publications {
 			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
 			log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
 			return;
-		}		
-
-		if(isset($medias->GetMediaByAuthorResult->media->title)) {
-			$media_list[0] = $medias->GetMediaByAuthorResult->media;
-		} else {
-			$media_list = $medias->GetMediaByAuthorResult->media;
 		}
+
+		if(isset($medias->GetMediaByAuthorResult->MediaDTO->title)) {
+			$media_list[0] = $medias->GetMediaByAuthorIdResult->MediaDTO;
+		} else {
+			$media_list = $medias->GetMediaByAuthorIdResult->MediaDTO;
+		}
+
+
 		foreach($media_list as $media) {
 			$this->data['medias'][$media->media_id]['title'] = $media->title;
 			$this->data['medias'][$media->media_id]['average_rating'] = $media->average_rating;
