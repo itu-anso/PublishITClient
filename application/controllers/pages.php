@@ -1,18 +1,21 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
+/**
+ * Main controller which processes every request on the server.
+ * 
+ */
 class Pages extends CI_Controller {
 
 	/**
-	 *
+	 *	The index function is called by default and inits the requested page
+	 *	
 	 */
 	public function index() {
-		error_reporting(E_ALL);
-		ini_set('display_errors', 'On');
 
 		// Initializing the main content variable
 		$this->data['main_content'] = '';
 		$request = $this->uri->segment(1);
-		//$this->headerqueue->add("assets\holdetdkv1\ckfinder\plugins\gallery\colorbox\jquery.min.js", $this->headerqueue::JAVASCRIPT_REFERENCE);
+		
 		// Does the requested page exist?
 		$page_id = $this->get_page_id("/" . $request);
 		$this->page->init_page($page_id);

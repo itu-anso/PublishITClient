@@ -64,7 +64,7 @@
 			<?= $main_content; ?>
 		</div>
 		<footer>
-			<pre><em>Rasmus Hedlund Rosted - Andreas Dahl Sørensen - Morten Rosenmeier - Frederik Hornbæk</em></pre>
+			<pre><em>PublishIT - 2014</em></pre>
 		</footer>
 	</body>
 </html>

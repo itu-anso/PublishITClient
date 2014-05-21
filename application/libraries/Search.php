@@ -1,10 +1,25 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Search {
 
+	/**
+	 * Array which holds data for the view.
+	 * 
+	 * @var array
+	 */
+	private $data;
+	
+	/**
+	 * Holds a reference to the codeigniter framework.
+	 * 
+	 * @var Object
+	 */
 	private $CI;
 
-	private $data;
-
+	/**
+	 * Init the search module called by the page model.
+	 * 
+	 * @param  int $module_id The module id
+	 */
 	public function init($module_id=null) {
 		$this->CI =& get_instance();
 		$class = $this->CI->headerqueue;
@@ -29,6 +44,11 @@ class Search {
 		}
 	}
 
+	/**
+	 * Processes any get variables submitted.
+	 * 
+	 * @return [type] [description]
+	 */
 	private function handle_get() {
 		$form_id = $this->CI->input->get('form_id');
 		$this->replacement_data = $this->CI->input->translate_prefix($form_id);
@@ -43,6 +63,11 @@ class Search {
 		}
 	}
 
+	/**
+	 * Processes any post variables submitted.
+	 * 
+	 * @return [type] [description]
+	 */
 	private function handle_post() {
 		$form_id = $this->CI->input->post('form_id');
 		$this->replacement_data = $this->CI->input->translate_prefix($form_id);
@@ -63,6 +88,10 @@ class Search {
 		}
 	}
 
+	/**
+	 * Download a media.
+	 * 
+	 */
 	private function download() {
 		try {
 			$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
@@ -76,13 +105,17 @@ class Search {
 
 			echo ($result->DownloadMediaResult);
 		} catch(SoapFault $e) {
-			$this->CI->message->set_error_message('Uuups... it wasn\'t possible to fetch your file, please try again later');
-			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+			$this->CI->message->set_error_message('Oops... it wasn\'t possible to fetch your file, please try again later');
+			$this->data['error_messages'] = $this->CI->message->render();
 			log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
 		}
 		
 	}
 
+	/**
+	 * Search and return medias.
+	 * 
+	 */
 	private function search_media() {
 		try {
 			$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('cache_wsdl' => WSDL_CACHE_NONE));
@@ -96,20 +129,25 @@ class Search {
 				$media_list = $retval->SearchMediaResult->MediaDTO;
 			}
 
-			$this->parser_medias($media_list);
+			$this->parse_medias($media_list);
 		} catch (SoapFault $e) {
-			$this->CI->message->set_error_message('Uuups... it wasn\'t possible to fetch your results, please try again later');
-			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+			$this->CI->message->set_error_message('Oops... it wasn\'t possible to fetch your results, please try again later');
+			$this->data['error_messages'] = $this->CI->message->render();
 			log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
 		}
 	}
 
-	private function parser_medias ($medias) {
+	/**
+	 * [parse_medias description]
+	 * 
+	 * @param  stdObject $medias The object returned from the service.
+	 */
+	private function parse_medias ($medias) {
 		try {
 			$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('cache_wsdl' => WSDL_CACHE_NONE));
 		} catch (SoapFault $e) {
-			$this->CI->message->set_error_message('Uuups... it wasn\'t possible to fetch your results, please try again later');
-			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+			$this->CI->message->set_error_message('Oops... it wasn\'t possible to fetch your results, please try again later');
+			$this->data['error_messages'] = $this->CI->message->render();
 			log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
 		}
 		
@@ -128,6 +166,10 @@ class Search {
 		}
 	}
 
+	/**
+	 * Get author by his id.
+	 * @param  int $id The user id.
+	 */
 	private function get_author($id) {
 		try {
 			$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
@@ -135,13 +177,16 @@ class Search {
 			$retval = $client->GetUserById($params);
 			return $retval->GetUserByIdResult->name;
 		} catch (SoapFault $e) {
-			$this->CI->message->set_error_message('Uuups... it wasn\'t possible to fetch your results, please try again later');
-			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+			$this->CI->message->set_error_message('Oops... it wasn\'t possible to fetch your results, please try again later');
+			$this->data['error_messages'] = $this->CI->message->render();
 			log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
 		}
-
 	}
 
+	/**
+	 * Uploads a file to the service.
+	 * 
+	 */
 	private function upload_file() {
 		if ($_FILES) {
 			
@@ -150,7 +195,7 @@ class Search {
 
 			if ($extension != 'pdf') {
 				$this->CI->message->set_error_message('Sory... only pdf files are allowed at the moment');
-				$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+				$this->data['error_messages'] = $this->CI->message->render();
 				log_message('info', 'Wrong file format');
 			}
 
@@ -173,13 +218,17 @@ class Search {
 				$client->__setSoapHeaders($headers);
 				$client->UploadMedia($params);
 			} catch (SoapFault $e){
-				$this->CI->message->set_error_message('Uuups... Something went wrong when trying to upload your document, please try again later');
-				$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+				$this->CI->message->set_error_message('Ooops... Something went wrong when trying to upload your document, please try again later');
+				$this->data['error_messages'] = $this->CI->message->render();
 				log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
 			}
 		}
 	}
 
+	/**
+	 * Is used to call ajax functions without reaching any other modules.
+	 * 
+	 */
 	public function ajax() {
 		try {
 				$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('trace' => true, 'cache_wsdl' => WSDL_CACHE_NONE));
@@ -190,8 +239,11 @@ class Search {
 		}
 	}
 
+	/**
+	 * Renders the search page.
+	 * 
+	 */
 	public function render() {
 		return $this->CI->load->view('search', $this->data, true);
 	}
-
 }

@@ -37,6 +37,9 @@
 						<? endforeach; ?>
 					</div>
 				<? endif; ?>
+				<? if (empty($medias)): ?>
+					<span class="empty_text">Use the text input above to search for some files!</span>
+				<? endif; ?>
 			</div>
 		</div>
 	</ul>

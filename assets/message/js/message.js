@@ -1,14 +1,1 @@
-$(function() {
-	$('#error_messages').dialog({
-		modal: true,
-		show: {
-			effect: "fade",
-			duration: 1000
-		},
-		hide: {
-			effect: "fade",
-			duration: 1000
-		}
-	});
-	
-});
+$(function(){$("#error_messages").dialog({modal:!0,show:{effect:"fade",duration:1e3},hide:{effect:"fade",duration:1e3}})});

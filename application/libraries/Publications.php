@@ -1,10 +1,25 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 class Publications {
 
+	/**
+	 * Array which holds data for the view.
+	 * 
+	 * @var array
+	 */
+	private $data;
+	
+	/**
+	 * Holds a reference to the codeigniter framework.
+	 * 
+	 * @var Object
+	 */
 	private $CI;
 
-	private $data;
-
+	/**
+	 * Init the publications module called by the page model.
+	 * 
+	 * @param  int $module_id The module id
+	 */
 	public function init($module_id=null) {
 		$this->CI =& get_instance();
 		$class = $this->CI->headerqueue;
@@ -18,6 +33,10 @@ class Publications {
 		}
 	}
 
+	/**
+	 * Returns all medias from a specifik writer.
+	 * 
+	 */
 	public function get_medias_by_user() {
 
 		try {
@@ -37,32 +56,34 @@ class Publications {
 				return;
 			}
 		} catch (SoapFault $e) {
-			$this->CI->message->set_error_message('Uuups..  it wasn\'t possible to fetch your documents, please try again later');
-			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+			$this->CI->message->set_error_message('Oops..  it wasn\'t possible to fetch your documents, please try again later');
+			$this->data['error_messages'] = $this->CI->message->render();
 			log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
 			return;
 		}
 
+		//The returned object changes whene there is one and many elements
 		if(isset($medias->GetMediaByAuthorIdResult->MediaDTO->title)) {
 			$media_list[0] = $medias->GetMediaByAuthorIdResult->MediaDTO;
 		} else {
 			$media_list = $medias->GetMediaByAuthorIdResult->MediaDTO;
 		}
 
-
 		foreach($media_list as $media) {
-			
-
 			$this->data['medias'][$media->media_id]['title'] = $media->title;
 			$this->data['medias'][$media->media_id]['average_rating'] = $media->average_rating;
 			$this->data['medias'][$media->media_id]['description'] = $media->description;
 			$this->data['medias'][$media->media_id]['date'] = $media->date;
 			$this->data['medias'][$media->media_id]['number_of_downloads'] = $media->number_of_downloads;
 			$this->data['medias'][$media->media_id]['media_id'] = $media->media_id;
-
 		}
 	}
 
+	/**
+	 * Processes any get variables submitted.
+	 * 
+	 * @return [type] [description]
+	 */
 	private function handle_get() {
 		$form_id = $this->CI->input->get('form_id');
 		$this->replacement_data = $this->CI->input->translate_prefix($form_id);
@@ -76,6 +97,10 @@ class Publications {
 		}
 	}
 
+	/**
+	 * Downloads and shows the document in the browser.
+	 * 
+	 */
 	private function show_document(){
 		try {
 			$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl");
@@ -89,12 +114,16 @@ class Publications {
 
 			echo ($result->DownloadMediaResult);
 		} catch (SoapFault $e) {
-			$this->CI->message->set_error_message('Uuups..  it wasn\'t possible to fetch your documents, please try again later');
-			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+			$this->CI->message->set_error_message('Oops..  it wasn\'t possible to fetch your documents, please try again later');
+			$this->data['error_messages'] = $this->CI->message->render();
 			log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
 		}
 	}
 
+	/**
+	 * Renders the publications module.
+	 * 
+	 */
 	public function render() {
 		return $this->CI->load->view('publications', $this->data, true);
 	}
