@@ -144,7 +144,8 @@ class Search {
 
 	private function upload_file() {
 		if ($_FILES) {
-			$temp = explode(".", $_FILES["upload_file_form_upload_file"]["name"]);
+			
+			$temp = explode(".", ($_FILES["upload_file_form_upload_file"]["name"]));
 			$extension = end($temp);
 
 			if ($extension != 'pdf') {

@@ -22,7 +22,7 @@
 							<h3 >[<?= $media['author']; ?>] <?= $media['title']; ?></h3>
 							<div class="accContainer">
 								<span class="description"><?= $media['description']; ?></span>
-								<form method="post">
+								<form method="post" action="/">
 									<input type="hidden" name="form_id" value="download_form" />
 									<input type="hidden" name="download_form_media_id" value="<?= $id; ?>"/>
 									<input type="hidden" name="download_form_media_title" value="<?=  $media['title']; ?>"/>
