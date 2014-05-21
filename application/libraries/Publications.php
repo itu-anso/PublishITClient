@@ -43,7 +43,7 @@ class Publications {
 			return;
 		}
 
-		if(isset($medias->GetMediaByAuthorResult->MediaDTO->title)) {
+		if(isset($medias->GetMediaByAuthorIdResult->MediaDTO->title)) {
 			$media_list[0] = $medias->GetMediaByAuthorIdResult->MediaDTO;
 		} else {
 			$media_list = $medias->GetMediaByAuthorIdResult->MediaDTO;
@@ -51,6 +51,8 @@ class Publications {
 
 
 		foreach($media_list as $media) {
+			
+
 			$this->data['medias'][$media->media_id]['title'] = $media->title;
 			$this->data['medias'][$media->media_id]['average_rating'] = $media->average_rating;
 			$this->data['medias'][$media->media_id]['description'] = $media->description;

@@ -194,7 +194,6 @@ section {
 
 .searchcontent
 {
-	text-align: center;
 	min-width: 300px;
 	margin: 0 auto;
 	margin-top: 137px;
@@ -229,20 +228,29 @@ section {
 	display: inline-block;
 	vertical-align: top;
 	padding: 40px;
+	width: 30%;
 }
 
 .rightSection {
 	display: inline-block;
 	vertical-align: top;
+	width: 59%;
 }
 
 .leftSection
 {
-	float: left;
 	max-width: 222px;
 	width: 100%;
-
 	margin-right: 20px;
+	min-width: 281px;
+}
+
+.ui-accordion .ui-accordion-content {
+	padding: 16px;
+	border-top: 0;
+	overflow: auto;
+
+	font-size: 14px;
 }
 
 /*#accordion h3,

@@ -24,10 +24,15 @@
 								<span class="description"><?= $media['description']; ?></span>
 								<form method="post">
 									<input type="hidden" name="form_id" value="download_form" />
-									<input type="hidden" name="download_form_media_id" value='<?= $id; ?>'/>
-									<input type="hidden" name="download_form_media_title" value="`<?=  $media['title']; ?>"/>
+									<input type="hidden" name="download_form_media_id" value="<?= $id; ?>"/>
+									<input type="hidden" name="download_form_media_title" value="<?=  $media['title']; ?>"/>
 									<input type="submit" name="download_form_download" value="Download"/>
 								</form>
+
+								<div class="rating" data-score="<?= $rating->GetRatingResult; ?>">
+									<input type="hidden" name="media_id" value="<?= $id; ?>" /> 
+								</div>
+
 							</div>
 						<? endforeach; ?>
 					</div>

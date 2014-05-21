@@ -9,14 +9,17 @@ class Search {
 		$this->CI =& get_instance();
 		$class = $this->CI->headerqueue;
 		
-
 		$class->add('//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js', $class::JAVASCRIPT_REFERENCE);
 		$class->add('//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js', $class::JAVASCRIPT_REFERENCE);
 		$class->add('/assets/publishit/js/script.js', $class::JAVASCRIPT_REFERENCE);
 
+		$class->add('/assets/search/js/search.js', $class::JAVASCRIPT_REFERENCE);
+		$class->add('/assets/raty/lib/jquery.raty.min.js', $class::JAVASCRIPT_REFERENCE);
+
+		$class->add('/assets/search/search.css', $class::STYLESHEET_REFERENCE);
+
 		$this->CI->load->library('Message');
-		
-		//var_dump($_FILES);
+
 		if ($_FILES || $_POST ) {
 			$this->handle_post();
 		}
@@ -67,9 +70,9 @@ class Search {
 			//$retval = $client->Test(null);
 			
 			$result = $client->DownloadMedia($params);
-			
+
 			header('Content-type: application/pdf');
-			header('Content-Disposition: attachment; filename="' . $this->translated_data['media_id'] . '.pdf"');
+			header('Content-Disposition: attachment; filename="' . $this->translated_data['media_title'] . '.pdf"');
 
 			echo ($result->DownloadMediaResult);
 		} catch(SoapFault $e) {
@@ -102,7 +105,13 @@ class Search {
 	}
 
 	private function parser_medias ($medias) {
-
+		try {
+			$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('cache_wsdl' => WSDL_CACHE_NONE));
+		} catch (SoapFault $e) {
+			$this->CI->message->set_error_message('Uuups... it wasn\'t possible to fetch your results, please try again later');
+			$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
+			log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
+		}
 		
 		foreach ($medias as $media ) {
 			$this->data['medias'][$media->media_id]['title'] = $media->title;
@@ -114,6 +123,8 @@ class Search {
 			$this->data['medias'][$media->media_id]['location'] = $media->location;
 			$this->data['medias'][$media->media_id]['number_of_downloads'] = $media->number_of_downloads;
 			$this->data['medias'][$media->media_id]['author'] = $this->get_author($media->user_id);
+
+			$this->data['rating'] = $client->GetRating(array('mediaId' => $media->media_id, 'userId' => $media->user_id));
 		}
 	}
 
@@ -150,7 +161,7 @@ class Search {
 			$headers[] = new SoapHeader('http://tempuri.org/', 'FileName', $_FILES["upload_file_form_upload_file"]["name"]);
 			$headers[] = new SoapHeader('http://tempuri.org/', 'UserId', $this->CI->user->user_id);
 			$headers[] = new SoapHeader('http://tempuri.org/', 'Status', (isset($this->translated_data['status']) ? 'published' : 'private'));
-			$headers[] = new SoapHeader('http://tempuri.org/', 'Description', 'published');
+			$headers[] = new SoapHeader('http://tempuri.org/', 'Description', $this->translated_data['title']);
 
 			$params =  array(
 					'FileStream' => $contents
@@ -165,6 +176,16 @@ class Search {
 				$this->data['error_messages'] = $this->CI->message->get_rendered_error_messages();
 				log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
 			}
+		}
+	}
+
+	public function ajax() {
+		try {
+				$client = @new SoapClient("http://rentit.itu.dk/RentIt09/PublishITService.svc?wsdl", array('trace' => true, 'cache_wsdl' => WSDL_CACHE_NONE));
+				$params = array('rating' => $this->CI->input->post('rating'), 'mediaId' => $this->CI->input->post('media_id'), 'userId' => $this->CI->user->user_id);
+				$client->PostRating($params);
+		} catch (SoapFault $e){
+			log_message('error', 'SoapFault ["fault"] : ' . $e->faultcode . ' [faultstring] : ' . $e->faultstring);
 		}
 	}
 
